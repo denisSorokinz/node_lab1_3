@@ -1,11 +1,12 @@
 {
   "name": "node_lab1_3",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint-check": "eslint .",
+    "eslint-check": "eslint --ignore-path .gitignore *.js",
     "prettier-check": "prettier --check .",
     "prettier-format": "prettier --write .",
     "prepare": "husky install",
@@ -29,9 +30,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-sonarjs": "^0.16.0",
     "husky": "^8.0.1",
-    "prettier": "2.7.1"
-  },
-  "dependencies": {
+    "prettier": "^2.7.1",
     "firebase": "^9.12.1"
   }
 }
