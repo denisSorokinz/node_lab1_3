@@ -17,5 +17,8 @@
   "dependencies": {
     "firebase-functions": "^3.18.0"
   },
+  "devDependencies": {
+    "firebase": "^9.12.1"
+  },
   "private": true
 }
