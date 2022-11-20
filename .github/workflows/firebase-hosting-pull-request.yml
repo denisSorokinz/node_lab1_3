@@ -16,4 +16,5 @@ jobs:
           projectId: kpi-web-node-project-3
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - run: npm ci
       - run: firebase deploy --only functions
