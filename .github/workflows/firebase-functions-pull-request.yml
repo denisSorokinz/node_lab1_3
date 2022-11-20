@@ -7,18 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
       - name: install dependencies
         run: cd functions/ && npm install
-      - name: create config json
-        uses: jsdaniell/create-json@1.1.2
-        id: create-config-json
-        with:
-          name: "config.json"
-          json: '{"type": "${{ secrets.TYPE }}","auth_uri": "${{ secrets.AUTH_URI }}","auth_provider_x509_cert_url": "${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}","private_key_id": "${{ secrets.PRIVATE_KEY_ID }}","project_id": "${{ secrets.PROJECT_ID }}","private_key": "${{ secrets.PRIVATE_KEY }}","token_uri": "${{ secrets.TOKEN_URI }}", "client_email": "${{ secrets.CLIENT_EMAIL }}","client_x509_cert_url": "${{ secrets.CLIENT_X509_CERT_URL }}","client_id": "${{ secrets.CLIENT_ID }}"}'
-          dir: "functions/"
-      - name: deploy to production
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only functions
+      - name: 🚀 Deploy
+        run: npx firebase-tools deploy --token "$FIREBASE_TOKEN"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
