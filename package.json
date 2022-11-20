@@ -31,7 +31,6 @@
     "eslint-plugin-sonarjs": "^0.16.0",
     "firebase": "^9.12.1",
     "firebase-tools": "^11.16.0",
-    "firebase-functions": "^3.18.0",
     "husky": "^8.0.1",
     "prettier": "^2.7.1"
   }
