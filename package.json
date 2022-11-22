@@ -11,7 +11,8 @@
     "prettier-format": "prettier --write .",
     "prepare": "husky install",
     "build": "",
-    "deploy": "firebase deploy"
+    "deploy": "firebase deploy",
+    "trigger-actions": "git add * && git commit -m 'trigger-actions' && git push"
   },
   "repository": {
     "type": "git",
