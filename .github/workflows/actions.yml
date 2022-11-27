@@ -30,29 +30,25 @@ jobs:
     - name: Run prettier 🐱‍💻
       run: npm run format:check
 
-  deploy:
-    needs: linting
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  deploy_to_production:
     runs-on: ubuntu-latest
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        cache: npm
-    # Runs a single command using the runners shell
-    # And of course we need to goto our functions folder to deploy
-    - name: Cache dependencies
-      id: cache
-      uses: actions/cache@v3
-      with:
-        path: ./node_modules
-        key: modules-${{ hashFiles('package-lock.json') }}
-    - name: Install dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: npm ci
-    - name:  Deploy to Firebase
-      run: npm run deploy
-      env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - uses: actions/checkout@v2
+
+      - name: install dependencies
+        run: cd functions/ && npm install
+
+      - name: create config json
+        uses: jsdaniell/create-json@1.1.2
+        id: create-config-json
+        with:
+          name: "config.json"
+          json: '{"type": "${{ secrets.TYPE }}","auth_uri": "${{ secrets.AUTH_URI }}","auth_provider_x509_cert_url": "${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}","private_key_id": "${{ secrets.PRIVATE_KEY_ID }}","project_id": "${{ secrets.PROJECT_ID }}","private_key": "${{ secrets.PRIVATE_KEY }}","token_uri": "${{ secrets.TOKEN_URI }}", "client_email": "${{ secrets.CLIENT_EMAIL }}","client_x509_cert_url": "${{ secrets.CLIENT_X509_CERT_URL }}","client_id": "${{ secrets.CLIENT_ID }}"}'
+          dir: "functions/"
+
+      - name: deploy to production
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
