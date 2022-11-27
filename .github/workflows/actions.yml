@@ -2,9 +2,9 @@ name: Linting and deploy
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "dev-2" ]
   push:
-    branches: [ "master" ]
+    branches: [ "master", "dev-2" ]
 
 jobs:
   linting:
