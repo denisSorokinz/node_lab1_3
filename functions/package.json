@@ -24,6 +24,7 @@
 	"private": true,
 	"devDependencies": {
 		"typescript": "^4.8.4",
-		"eslint-config-custom": "*"
+		"eslint-config-custom": "*",
+		"husky": "^8.0.1"
 	}
 }
